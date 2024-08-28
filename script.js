@@ -17,7 +17,7 @@ const llaves = [
 
 ];
 
-function encriptarmensaje(mensaje){
+function encriptarMensaje(mensaje){
     let mensajeEncriptado = "";
     for(let i =0; i < mensaje.length; i++){
         let letra = mensaje[i];
@@ -51,13 +51,32 @@ textArea.addEventListener("input", (e) => {
 
 })
 
-botonEncriptar.addEventListener("click", (e)=> {
+botonEncriptar.addEventListener("click", (e)=>{
     e.preventDefault();
     let mensaje = textArea.value.toLowerCase();
-    let mensajeEncriptado = encriptarmensaje(mensaje);
+    let mensajeEncriptado = encriptarMensaje(mensaje);
     resultadoE.textContent = mensajeEncriptado;
     botonCopiar.classList.remove("ocultar");
     resultadoT.textContent = "El resultado es: ";
 
 })
 
+botonDesencriptar.addEventListener('click', (e)=>{
+    e.preventDefault(); 
+    let mensaje = textArea.value.toLowerCase();
+    let mensajeDesencriptado = desencriptarMensaje(mensaje);
+    resultadoE.textContent = mensajeDesencriptado;
+    resultadoT.textContent = "El resultado es: ";
+    botonCopiar.classList.remove("ocultar");
+})
+
+botonCopiar.addEventListener('click', ()=>{
+    let textoCopiado = resultadoE.textContent;
+    navigator.clipboard.writeText(textoCopiado).then(()=> {
+    imagenP.style.display = "block";
+    loader.classList.add("ocultar");
+    resultadoT.textContent = "El texto se copio"
+    botonCopiar.classList.add("ocultar");
+    resultadoE.textContent = "";
+    })
+})
